@@ -9,6 +9,7 @@ import android.content.Intent;
 
 import mobile.zaoren.com.update.activity.DownloadingActivity;
 import mobile.zaoren.com.update.activity.UpdateDialogActivity;
+import mobile.zaoren.com.update.config.DebugLog;
 import mobile.zaoren.com.update.config.DownloadKey;
 import mobile.zaoren.com.update.config.UpdateKey;
 import mobile.zaoren.com.update.module.Download;
@@ -99,7 +100,7 @@ public class UpdateFunGo {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         builder = new Notification.Builder(context);
-        builder.setSmallIcon(android.R.drawable.ic_menu_info_details)
+        builder.setSmallIcon(android.R.drawable.sym_def_app_icon)
                 .setTicker("开始下载")
                 .setContentTitle(GetAppInfo.getAppName(context))
                 .setContentText("正在更新")

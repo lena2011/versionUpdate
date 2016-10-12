@@ -6,5 +6,5 @@ package mobile.zaoren.com.update.config;
 public class UpdateKey {
     public final static int WITH_DIALOG = 1;
     public final static int WITH_NOTIFICATION = 2;
-    public static int DialogOrNotification = WITH_DIALOG;//默认弹框下载
+    public static int DialogOrNotification = WITH_NOTIFICATION;//默认弹框下载
 }

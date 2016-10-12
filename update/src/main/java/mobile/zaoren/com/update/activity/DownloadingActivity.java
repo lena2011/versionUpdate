@@ -33,6 +33,7 @@ public class DownloadingActivity extends Activity {
         mProgress = (ProgressBar) findViewById(R.id.downloaddialog_progress);
         count = (TextView) findViewById(R.id.downloaddialog_count);
 
+        if (DownloadKey.interceptFlag) DownloadKey.interceptFlag = false;
         new Download(this).start();
 
         close.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +44,7 @@ public class DownloadingActivity extends Activity {
                         mContext.getClass());
                 setResult(3, intent);
                 DownloadKey.ToShowDownloadView = DownloadKey.closeDownloadView;
-                DownloadKey.intercetFlag = true;
+                DownloadKey.interceptFlag = true;
                 finish();
             }
         });

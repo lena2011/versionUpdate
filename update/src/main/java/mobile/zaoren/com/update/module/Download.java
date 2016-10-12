@@ -1,7 +1,6 @@
 package mobile.zaoren.com.update.module;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -47,6 +46,12 @@ public class Download extends Thread {
         mDownHandler = new DownHandler(context);
     }
 
+    /**
+     * 通知栏下载apk
+     *
+     * @param builder
+     * @param context
+     */
     public Download(Notification.Builder builder, Context context) {
         mContext = context;
         NotificationManager notificationManager =
@@ -165,12 +170,19 @@ public class Download extends Thread {
                     break;
                 }
                 fileOutputStream.write(buf, 0, numread);
-            } while (!DownloadKey.intercetFlag);//点击取消就停止下载
+            } while (!DownloadKey.interceptFlag);//点击取消就停止下载
 
             fileOutputStream.flush();
             fileOutputStream.close();
             inputStream.close();
             connection.disconnect();
+            if (DownloadKey.interceptFlag) {
+                Log.i("UpdateFun TAG", "interrupt");
+                length = 0;
+                count = 0;
+                DownloadKey.interceptFlag = false;
+                this.interrupt();
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -182,11 +194,11 @@ public class Download extends Thread {
         String apkName = GetAppInfo.getAPKPackageName(context, apkFile.toString());
         String appName = GetAppInfo.getAppPackageName(context);
         if (apkName != null && apkName.equals(appName)) {
-            Log.i("UpdateFun TAG", "包名相同,安装apk");
+//            Log.i("UpdateFun TAG", "包名相同,安装apk");
             return true;
         } else {
-            Log.i("UpdateFun TAG",
-                    String.format("apk检验:包名不同。该app包名:%s，apk包名:%s", appName, apkName));
+//            Log.i("UpdateFun TAG",
+//                    String.format("apk检验:包名不同。该app包名:%s，apk包名:%s", appName, apkName));
             Toast.makeText(context, "apk检验:包名不同,不进行安装,原因可能是运营商劫持", Toast.LENGTH_LONG).show();
             return false;
         }
@@ -196,9 +208,10 @@ public class Download extends Thread {
         if (!apkFile.exists()) {
             return;
         }
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setDataAndType(Uri.parse("file://" + apkFile.toString()),
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//出现打开按钮
+        intent.setDataAndType(Uri.parse("file://" + apkFile.toString()),
                 "application/vnd.android.package-archive");
-        context.startActivity(i);
+        context.startActivity(intent);
     }
 }

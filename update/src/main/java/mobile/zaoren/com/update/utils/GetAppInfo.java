@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 
@@ -78,6 +80,13 @@ public class GetAppInfo {
         return versionCode;
     }
 
+    /**
+     * 获取当前版本包名
+     *
+     * @param context
+     * @param apkPath
+     * @return
+     */
     public static String getAPKPackageName(Context context, String apkPath) {
         PackageManager pm = context.getPackageManager();
         PackageInfo info = pm.getPackageArchiveInfo(apkPath, PackageManager.GET_ACTIVITIES);
@@ -87,6 +96,24 @@ public class GetAppInfo {
         }
         return null;
     }
-
+//
+//    /*
+//      * 获取程序 图标
+//      */
+//    public static Drawable getAppIcon(Context context) {
+//        PackageInfo packageInfo;
+//        PackageManager packageManager = context.getPackageManager();
+//        ApplicationInfo applicationInfo;
+//        Drawable icon = ContextCompat.getDrawable(context, android.R.drawable.ic_menu_info_details);
+//        try {
+//            packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+//            String packageNames = packageInfo.packageName;
+//            applicationInfo = packageManager.getApplicationInfo(packageNames, 0);
+//            icon = applicationInfo.loadIcon(packageManager);
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        return icon;
+//    }
 
 }

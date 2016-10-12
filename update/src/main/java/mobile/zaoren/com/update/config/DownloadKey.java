@@ -18,5 +18,5 @@ public class DownloadKey {
     public static String changeLog;
     public static Integer version = 0;
 
-    public static boolean intercetFlag;
+    public static boolean interceptFlag;
 }
