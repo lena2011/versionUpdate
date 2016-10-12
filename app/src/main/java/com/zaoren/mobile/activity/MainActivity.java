@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zaoren.mobile.R;
@@ -22,7 +23,7 @@ import mobile.zaoren.com.update.utils.GetAppInfo;
 
 public class MainActivity extends AppCompatActivity {
     private Button mButton;
-
+    private TextView version;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         mButton = (Button) findViewById(R.id.check_update);
-
+        version = (TextView) findViewById(R.id.version);
+        version.setText("版本号"+GetAppInfo.getAppVersionName(this));
         loadData(false);
     }
 
@@ -52,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private void loadData(boolean isManual) {
         MapiUpdateVersionResult result = new MapiUpdateVersionResult();
-        result.setVersion(2);
-        result.setContent("1.本次更新");
-        result.setUrl("http://img.bstapp.cn/zaoren/testapp/update.apk");
+        result.setVersion(3);
+        result.setContent("本次版本1.1更新1.2版本");
+        result.setUrl("http://img.bstapp.cn/zaoren/testapp/app_1.2.apk");
         checkVersion(result, isManual);
     }
 
